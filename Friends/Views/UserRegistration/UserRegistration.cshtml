@@ -1,0 +1,94 @@
+﻿@using Friends.Models
+@model User
+@{
+    ViewBag.Title = "User Registration";
+    Layout = null;
+}
+
+<html>
+<head>
+</head>
+<body>
+    <div class="container">
+        <h4 class="alert-danger">@TempData["Message"]</h4>
+        @using (Html.BeginForm("UserRegistration", "UserRegistration", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="required-field">First Name</label>
+                    @Html.TextBoxFor(m => m.FirstName, new { id = "FirstName" })
+                    @Html.ValidationMessageFor(m => m.FirstName)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="required-field">Last Name</label>
+                    @Html.TextBoxFor(m => m.LastName, new { id = "LastName" })
+                    @Html.ValidationMessageFor(m => m.LastName)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="required-field">Email ID</label>
+                    @Html.TextBoxFor(m => m.EmailID, new { id = "EmailID" })
+                    @Html.ValidationMessageFor(m => m.EmailID)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="required-field">Mobile No</label>
+                    @Html.TextBoxFor(m => m.MobileNo, new { id = "MobileNo" })
+                    @Html.ValidationMessageFor(m => m.MobileNo)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="required-field">Password</label>
+                    @Html.TextBoxFor(m => m.Password, new { id = "Password", type = "password" })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <label class="required-field">Confirm Password</label>
+                    @Html.TextBoxFor(m => m.ConfirmPassword, new { id = "ConfirmPassword", type = "password" })
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                </div>
+            </div>
+
+            <div class="row">
+                @Html.HiddenFor(m => m.UserMasterId, new { id = "UserMasterId" })
+                <div class="col-md-2">
+                    <button type="submit" id="btnSubmit" class="btn btn-primary" value="Submit">Submit</button>
+                </div>
+            </div>
+
+        }
+
+    </div>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+    <style>
+        .required-field::after {
+            content: "*";
+            color: red;
+        }
+    </style>
+
+</body>
+
+</html>
+
+
+
+

@@ -1,0 +1,83 @@
+﻿@using Friends.Models
+@model DisplayFriends
+@{
+    ViewBag.Title = "Friend Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+
+{
+    <div class="row">
+        <div class="col-md-4">
+            <label class="required-field">First Name</label>
+            @Html.TextBoxFor(m => m.FirstName, new { id = "FirstName" })
+            @Html.ValidationMessageFor(m => m.FirstName)
+        </div>
+
+        <div class="col-md-4">
+            <label class="required-field">Last Name</label>
+            @Html.TextBoxFor(m => m.LastName, new { id = "LastName" })
+            @Html.ValidationMessageFor(m => m.LastName)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="required-field">Email ID</label>
+            @Html.TextBoxFor(m => m.EmailID, new { id = "EmailID" })
+            @Html.ValidationMessageFor(m => m.EmailID)
+        </div>
+
+        <div class="col-md-4">
+            <label class="required-field">Mobile No</label>
+            @Html.TextBoxFor(m => m.MobileNo, new { id = "MobileNo" })
+            @Html.ValidationMessageFor(m => m.MobileNo)
+        </div>
+    </div>
+
+    <div class="row">
+        <h4 class="alert-danger">@TempData["Message"]</h4>
+    </div>
+
+    <div class="row">
+        @Html.HiddenFor(m => m.FriendId, new { id = "FriendId" })
+        <div class="col-md-12">
+            <button type="submit" id="btnSubmit" class="btn btn-primary" value="Submit">Submit</button>
+            <input type="button" id="btnEdit" class="btn btn-secondary" value="Edit" onclick="enableinput();" />
+            @Html.ActionLink("Back", "DisplayFriends", "DisplayFriends", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+
+}
+
+<style>
+    .required-field::after {
+        content: "*";
+        color: red;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            debugger;
+            var FriendId = $('#FriendId').val();
+            if (FriendId > 0) {
+                $('#btnSubmit').hide();
+                $('#btnEdit').show();
+                $('input[type=text]').attr('disabled', 'disabled');
+            }
+            else {
+                $('#btnEdit').hide();
+            }
+        });
+
+        function enableinput() {
+            $('#btnSubmit').show();
+            $('#btnEdit').hide();
+            $('input[type=text]').removeAttr('disabled');
+        }
+    </script>
+}

@@ -1,0 +1,70 @@
+﻿@using Friends.Models
+@model List<DisplayFriends>
+@{
+    ViewBag.Title = "Display Friends";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+</head>
+<body>
+    <div class="container">
+        @using (Html.BeginForm("DisplayFriends", "DisplayFriends", FormMethod.Post))
+        {
+            <table class="table">
+                <tr>
+                    <th>Action</th>
+                    <th>Sr No.</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email ID</th>
+                    <th>Mobile No.</th>
+                </tr>
+
+                @{int i = 1;
+                    for (var j = 0; j < Model.Count; j++)
+                    {
+                        <tr>
+                            <td>
+                                @Html.CheckBoxFor(c => c[j].isChecked)
+                                @Html.HiddenFor(c => c[j].FriendId)
+                            </td>
+                            <td>@i</td>
+                            <td>@Html.ActionLink(@Model[j].FirstName, "FriendsDetails", "FriendsDetails", new { FriendId = @Model[j].FriendId })</td>
+                            <td>@Model[j].LastName</td>
+                            <td>@Model[j].EmailID</td>
+                            <td>@Model[j].MobileNo</td>
+                            @{i++;}
+                        </tr>
+                    }
+                }
+            </table>
+
+            <div class="row">
+                <h4 id="ErrorMessage" class="alert-danger">@TempData["Message"]</h4>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-danger" onclick="return validatecheckbox();" value="Login">Delete</button>
+                    @Html.ActionLink("Create New Friend", "FriendsDetails", "FriendsDetails", null,new { @class="btn btn-primary" })
+                </div>
+            </div>
+        }
+    </div>
+
+    <script>
+        function validatecheckbox() {
+            debugger;
+            if ($("input[type=checkbox]:checked").length > 0) {
+                return true;
+            }
+            $('#ErrorMessage').text("Please select atleast one Friend to delete !! ");
+            return false;
+        }
+    </script>
+</body>
+
+
+</html>
